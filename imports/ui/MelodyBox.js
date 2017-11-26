@@ -55,7 +55,7 @@ export default class MelodyBox extends Component {
                 this.dots[i][j] = new createjs.Shape();
                 let size = Math.min(height/(Y*16),width/(X*30));
                 this.dots[i][j].graphics.beginFill("Grey").drawCircle(i*(width/X)+width/(2*X)-size/2,j*(height/Y)+height/(2*X)-size/2,size);
-                this.colorMatrix[i][j] = this.colors[j%7];
+                this.colorMatrix[i][j] = {r:this.colors[j%7].r, g:this.colors[j%7].g, b:this.colors[j%7].b};
                 this.colorCommands[i][j] = this.cells[i][j].graphics.beginFill(createjs.Graphics.getRGB(this.colors[j%7].r, this.colors[j%7].g, this.colors[j%7].b )).command;
                 this.cells[i][j].graphics.drawRect(i*(width/X),j*(height/Y),width/X-1,height/Y-1);
                 var hit = new createjs.Shape();
@@ -85,6 +85,9 @@ export default class MelodyBox extends Component {
     }
     getClickFunction(i,j,stage){
         return ()=>{
+            if(this.running){
+                this.toggleAnimation();
+            }
             let newBoxState = this.state.boxState ;
             newBoxState[i][j] = !newBoxState[i][j];
 
@@ -127,7 +130,9 @@ export default class MelodyBox extends Component {
         const fadeOut = 150;
         const phase = i * note;
         const total = X * note;
-        this.colorMatrix[i][j]  = this.colors[j%7];
+        this.colorMatrix[i][j].r  = this.colors[j%7].r;
+        this.colorMatrix[i][j].g  = this.colors[j%7].g;
+        this.colorMatrix[i][j].b  = this.colors[j%7].b;
         this.createChangeColorAnimation(i,j,this.stage)();
         if (i==0){
             this.tweenMatrix[i][j] = createjs.Tween.get(this.colorMatrix[i][j], {loop:true})
@@ -162,7 +167,9 @@ export default class MelodyBox extends Component {
             for(let i = 0 ; i < X; i++){
                 for(let j = 0 ; j < Y; j++){
                     if(this.state.boxState[i][j]){
-                        this.colorMatrix[i][j]  = this.colors[j%7];
+                        this.colorMatrix[i][j].r  = this.colors[j%7].r;
+                        this.colorMatrix[i][j].g  = this.colors[j%7].g;
+                        this.colorMatrix[i][j].b  = this.colors[j%7].b;
                         this.createChangeColorAnimation(i,j,this.stage)();
                         this.createTween(i,j,X,0);
                     }
@@ -172,10 +179,13 @@ export default class MelodyBox extends Component {
         } else{
             this.running = false;
             createjs.Tween.removeAllTweens();
+            console.log(this.colorMatrix);
             for(let i = 0 ; i < X; i++){
                 for(let j = 0 ; j < Y; j++){
                     if(this.state.boxState[i][j]){
-                        this.colorMatrix[i][j]  = this.colors[j%7];
+                        this.colorMatrix[i][j].r  = this.colors[j%7].r;
+                        this.colorMatrix[i][j].g  = this.colors[j%7].g;
+                        this.colorMatrix[i][j].b  = this.colors[j%7].b;
                         this.createChangeColorAnimation(i,j,this.stage)();
                     }
                 }
