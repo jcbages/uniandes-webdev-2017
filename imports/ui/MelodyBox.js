@@ -217,6 +217,7 @@ export default class MelodyBox extends Component {
         }
     }
     componentDidUpdate(){
+        //NOT REALLY A GREAT SOLUTION BUT ITS SOMETHING
         this.toggleAnimation();
         this.toggleAnimation();
     }
