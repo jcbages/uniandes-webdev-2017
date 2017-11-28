@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './MelodyBox.css';
 import  'meteor/sorenpeterson:createjs';
+import Tone from 'tone';
 
 export default class MelodyBox extends Component {
     
@@ -23,6 +24,13 @@ export default class MelodyBox extends Component {
         this.toggleAnimation = this.toggleAnimation.bind(this);
         this.tweenMatrix = Array(12).fill().map( () => Array(14));
         this.running = false;
+        this.synth =  new Tone.PolySynth(6, Tone.Synth, {
+			"oscillator" : {
+				"partials" : [0, 2, 3, 4],
+			}
+        }).toMaster();
+        this.loop = null;
+        
     }
 
     resizeCanvasToDisplaySize(canvas) {
@@ -42,6 +50,7 @@ export default class MelodyBox extends Component {
         }
      }
     drawMatrix(){
+        Tone.Transport.start();
         this.stage = new createjs.Stage("mainCanvas");
         const width = this.mainCanvas.width;
         const height = this.mainCanvas.height;
@@ -86,6 +95,7 @@ export default class MelodyBox extends Component {
     getClickFunction(i,j,stage){
         return ()=>{
             if(this.running){
+                this.toggleAnimation();
                 this.toggleAnimation();
             }
             let newBoxState = this.state.boxState ;
@@ -162,8 +172,21 @@ export default class MelodyBox extends Component {
     toggleAnimation(){
         const X = this.cells.length;
         const Y = this.cells[0].length;
+        let noteNames = ["C4","D4","E4","F4","G4","A4","B4","C4","D4","E4","F4","G4","A4","B4"];
         if(!this.running){
             this.running = true;
+            this.loop = new Tone.Sequence(((Y,boxState,synth)=> { return(
+                (time, col) =>{  
+                    for (let i = 0; i < Y; i++){
+                        
+                        if (boxState[col][i]){
+                            console.log(noteNames[14-i-1]+" "+col+" "+i+" "+time);    
+                            synth.triggerAttackRelease(noteNames[14-i-1],.150,time);
+                        }
+                    }
+                });
+            })(Y,this.state.boxState,this.synth), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], .150);
+
             for(let i = 0 ; i < X; i++){
                 for(let j = 0 ; j < Y; j++){
                     if(this.state.boxState[i][j]){
@@ -175,11 +198,12 @@ export default class MelodyBox extends Component {
                     }
                 }
             }
+            this.loop.start();
             this.stage.update();
         } else{
             this.running = false;
+            this.loop.stop();
             createjs.Tween.removeAllTweens();
-            console.log(this.colorMatrix);
             for(let i = 0 ; i < X; i++){
                 for(let j = 0 ; j < Y; j++){
                     if(this.state.boxState[i][j]){
