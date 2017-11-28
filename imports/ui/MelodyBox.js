@@ -172,7 +172,7 @@ export default class MelodyBox extends Component {
     toggleAnimation(){
         const X = this.cells.length;
         const Y = this.cells[0].length;
-        let noteNames = ["C4","D4","E4","F4","G4","A4","B4","C4","D4","E4","F4","G4","A4","B4"];
+        let noteNames = ["C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G4","A4","B4"];
         if(!this.running){
             this.running = true;
             this.loop = new Tone.Sequence(((Y,boxState,synth)=> { return(
@@ -216,7 +216,10 @@ export default class MelodyBox extends Component {
             }
         }
     }
-
+    componentDidUpdate(){
+        this.toggleAnimation();
+        this.toggleAnimation();
+    }
     render(){
         return (
             <div>
