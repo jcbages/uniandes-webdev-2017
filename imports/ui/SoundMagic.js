@@ -6,6 +6,9 @@ export default class SoundMagic {
 	constructor(composition,synth) {
 		this.id = Math.random();
 		let noteNames = ["C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G4","A4","B4"];
+		if(composition.length === 0){
+			composition.push(this.randomSong());
+		}
 		this.loop = new Tone.Sequence(((Y,composition,synth)=> { return(
 			(time, col) =>{  
 				for (let i = 0; i < Y; i++){                
@@ -29,5 +32,23 @@ export default class SoundMagic {
 
 	stop() {
 		this.loop.stop();
+	}
+
+	randomSong(){
+		let response = '0'.repeat(X*Y);
+		for(let i = 0 ; i < X ; i++){
+			let rand = Math.random();
+			if(rand>0.15 && rand <0.5){
+				response[i*Y + Math.floor(Math.random()*14)] = '1';
+			} else if (rand > 0.5 && rand <0.85 ){
+				response[i*Y + Math.floor(Math.random()*14)] = '1';
+				response[i*Y + Math.floor(Math.random()*14)] = '1';
+			} else if (rand>0.85) {
+				response[i*Y + Math.floor(Math.random()*14)] = '1';
+				response[i*Y + (Math.floor(Math.random()*14+2)%14)] = '1';
+				response[i*Y + (Math.floor(Math.random()*14+4)%14)] = '1';
+			}
+		}
+		return response;
 	}
 }
