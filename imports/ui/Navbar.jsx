@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './navbar.css';
+
 /* This is the navbar, with options for moving through the site */
 export default class Navbar extends Component {
 
@@ -11,23 +12,29 @@ export default class Navbar extends Component {
 		let createCompositionButton = null;
 
 		let logoutButton = null;
-		let registerButton = <button onClick={this.props.register}  className="waves-effect waves-light btn navbar-button">Enter now</button>;
+		let registerButton = null;
 
 		if (this.props.user) {
 			myCompositionsButton = (
-				<button onClick={this.props.changeView('myCompositions')}  className="waves-effect waves-light btn navbar-button"> 
+				<button
+					onClick={this.props.changeView('myCompositions')}
+					className="waves-effect waves-light btn navbar-button"> 
 					My Compositions
 				</button>
 			);
 
 			createCompositionButton = (
-				<button onClick={this.props.changeView('createComposition')}  className="waves-effect waves-light btn navbar-button">
+				<button
+					onClick={this.props.changeView('createComposition')}
+					className="waves-effect waves-light btn navbar-button">
 					Create Composition
 				</button>
 			);
 
 			logoutButton = (
-				<button onClick={this.props.logout}  className="waves-effect waves-light btn navbar-button">
+				<button
+					onClick={this.props.logout}
+					className="waves-effect waves-light btn navbar-button">
 					Logout
 				</button>
 			)
@@ -44,7 +51,11 @@ export default class Navbar extends Component {
 					
 					{/* These are the navigation buttons */}
 
-					<button onClick={this.props.changeView('feed')}  className="waves-effect waves-light btn navbar-button">Feed</button>
+					<button
+						onClick={this.props.changeView('feed')} 
+						className="waves-effect waves-light btn navbar-button">
+						Feed
+					</button>
 					{myCompositionsButton}
 					{createCompositionButton}
 
@@ -55,4 +66,5 @@ export default class Navbar extends Component {
 			</div>
 		);
 	}
+
 }

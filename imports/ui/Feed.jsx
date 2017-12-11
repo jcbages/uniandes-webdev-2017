@@ -26,13 +26,16 @@ export default class Feed extends Component {
 
 				<div className ='row'>
 					<h2 className="title col s6 m12">These are some auto-generated melodies for you!</h2> 
-					<a className="waves-effect waves-light btn deep-purple darken-2 col s6 m2 title" onClick={this.props.loadMoreMelodies} >MORE!</a>
+					<a
+						className="waves-effect waves-light btn deep-purple darken-2 col s6 m2 title"
+						onClick={this.props.loadMoreMelodies}>
+						MORE!
+					</a>
 				</div>
+
 				{/* This is the list of generated melodies */}
-				<div className = 'row'>{melodies}</div>
-
+				<div className="row">{melodies}</div>
 				
-
 			</div>
 		);
 	}

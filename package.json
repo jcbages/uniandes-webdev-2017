@@ -9,8 +9,9 @@
     "core-js": "^2.5.2",
     "materialize-css": "^0.100.2",
     "meteor-node-stubs": "~0.2.4",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
+    "react": "^16.2.0",
+    "react-addons-pure-render-mixin": "^15.6.2",
+    "react-dom": "^16.2.0",
     "synaptic": "^1.1.4",
     "tone": "^0.11.11"
   }
