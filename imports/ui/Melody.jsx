@@ -7,7 +7,7 @@ export default class Melody extends Component {
 	render() {
 		// Define the play button text + action depending on if the props melody is playing
 		let playButtonText = 'Play melody';
-		let playButtonOnClick = this.props.playMelody(this.props.melody);
+		let playButtonOnClick = () => this.props.playMelody(this.props.melody);
 		if (this.props.isPlayingMelody(this.props.melody)) {
 			playButtonText = 'Stop playing melody';
 			playButtonOnClick = () => this.props.stopMelody();

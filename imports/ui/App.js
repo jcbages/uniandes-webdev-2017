@@ -4,6 +4,8 @@ import Navbar from './Navbar.jsx';
 import Feed from './Feed.jsx'
 import MyCompositions from './MyCompositions.jsx';
 import MelodyBox from './MelodyBox.jsx';
+import SoundMagic from './SoundMagic';
+import Tone from 'tone';
 
 /* This is the main/root component, everything begins here */
 export default class App extends Component {
@@ -46,6 +48,14 @@ export default class App extends Component {
 		this.logout = this.logout.bind(this);
 
 		this.saveComposition = this.saveComposition.bind(this);
+		this.currentSM = null;
+
+		this.synth =  new Tone.PolySynth(6, Tone.Synth, {
+			"oscillator" : {
+				"partials" : [0, 2, 3, 4],
+			}
+		}).toMaster();
+		Tone.Transport.start();
 	}
 
 	/* Change the view for the given one */
@@ -55,11 +65,21 @@ export default class App extends Component {
 
 	/* Start playing the given melody & stop any other currentlly playing melody (if any) */
 	playMelody(melody) {
+		if(this.currentSM !== null){
+			this.currentSM.stop();
+		}
+		// For now Burn baby burn
+		this.currentSM = new SoundMagic(['000000000000100000000000010000000000100000000000010000000000001000000000000000000100000000000000100000000100000000000000100000000000000001000000001000000000000001000000','000000100000000000000100000000000000000010000000000001000000000010000000000001000000000000100000000000000000010000000000000010000000010000000000000010000000000000000100']
+										,this.synth);
+		
+		this.currentSM.start();
+		this.setState({ playingMelody: melody });
+		// With the way currentSM works there should be only one loop running without callbacks or anything
 		return () => {
-			// TODO: Really play the melody
+
 			this.stopMelody(() => {
 				console.log(`playing melody type ${melody.type} tururururu`);
-				this.setState({ playingMelody: melody });
+				
 			});
 		}
 	}
@@ -67,6 +87,7 @@ export default class App extends Component {
 	/* Stop playing the currently playing melody (if any) */
 	stopMelody(cb) {
 		// TODO: Really stop the melody
+		this.currentSM.stop();
 		this.setState({ playingMelody: undefined }, cb);
 	}
 
@@ -126,6 +147,14 @@ export default class App extends Component {
 			// No se si deba cambiar el view, yo creo que s\'i
 		});
 	}
+
+	componentWillUnmount(){
+		//FAILSAFE
+		if(this.currentSM !== null){
+			this.currentSM.stop();
+		}
+	}
+	
 	/* Render the app component + children (if any) */
 	render() {
 		let content;
