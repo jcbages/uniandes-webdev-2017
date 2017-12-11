@@ -12,16 +12,17 @@ export default class MyCompositions extends Component {
 				key={`composition-${index}`}
 				user={this.props.user}
 				composition={composition}
-				deleteComposition={this.props.deleteComposition} />
+				deleteComposition={this.props.deleteComposition}
+				index={index} />
 		);
 
 		return (
-			<div className="feed">
+			<div className="feed w3-main">
 
 				<h2>These are your compositions</h2>
 
 				{/* This is the list of user's compositions */}
-				<ul>{compositions}</ul>
+				<div className = 'row'>{compositions}</div>
 
 			</div>
 		);

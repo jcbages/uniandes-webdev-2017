@@ -7,6 +7,7 @@ import MelodyBox from './MelodyBox.jsx';
 import SoundMagic from './SoundMagic';
 import Tone from 'tone';
 
+import './App.css';
 /* This is the main/root component, everything begins here */
 export default class App extends Component {
 
@@ -25,10 +26,10 @@ export default class App extends Component {
 				{ _id: '3', type: 3, ids: ['2', '8'] }
 			],
 			compositions: [
-				{ _id: '1', name: 'pepito1', createdAt: 987654321234, upvotes: 0 },
-				{ _id: '2', name: 'pepito2', createdAt: 987654321291, upvotes: 0 },
-				{ _id: '4', name: 'pepito3', createdAt: 987654343833, upvotes: 0 },
-				{ _id: '8', name: 'pepito4', createdAt: 987654329982, upvotes: 0 }
+				{ _id: '1', name: 'Faena de una noche de verano', createdAt: 987654321234, upvotes: 5 },
+				{ _id: '2', name: 'Esa sensación que me da ver tus ojos', createdAt: 987654321291, upvotes: 7 },
+				{ _id: '4', name: 'Sólo podría describirte como una leve incomodidad', createdAt: 987654343833, upvotes: 8 },
+				{ _id: '8', name: 'Ludovico en Audi', createdAt: 987654329982, upvotes: 9 }
 			],
 			playingMelody: undefined
 		};
@@ -69,19 +70,28 @@ export default class App extends Component {
 			this.currentSM.stop();
 		}
 		// For now Burn baby burn
-		this.currentSM = new SoundMagic(['000000000000100000000000010000000000100000000000010000000000001000000000000000000100000000000000100000000100000000000000100000000000000001000000001000000000000001000000','000000100000000000000100000000000000000010000000000001000000000010000000000001000000000000100000000000000000010000000000000010000000010000000000000010000000000000000100']
+		if (melody.type === 1) {
+			this.currentSM = new SoundMagic(['000000010010011100101000000100000100010001100000001010010001000000110100000100101001001110001100111100000010000100000010000001000010000000001110000100010100000000100000']
 										,this.synth);
+		} else if (melody.type === 2) {
+			this.currentSM = new SoundMagic(['100000000001010000000000000100001001000001000100001000000010000001000101000000000101100000000000000000000001000100001000000000000000000000010000100010000100000000010000'],
+							this.synth);
+		} else {
+			this.currentSM = new SoundMagic(['000001000000000000000010000100000010000001000000000000000000000001000100000100000001000000000100000000000000000100000001000000000100000000000100000001000000000010000000'],
+							this.synth);
+		}
+
 		
 		this.currentSM.start();
 		this.setState({ playingMelody: melody });
 		// With the way currentSM works there should be only one loop running without callbacks or anything
-		return () => {
+		/*return () => {
 
 			this.stopMelody(() => {
 				console.log(`playing melody type ${melody.type} tururururu`);
 				
 			});
-		}
+		}*/
 	}
 
 	/* Stop playing the currently playing melody (if any) */
@@ -159,27 +169,29 @@ export default class App extends Component {
 	render() {
 		let content;
 		if (this.state.view === 'feed') {
-			content = <Feed
+			content = <Feed  
 				user={this.state.user} 					// TODO: Change to props
 				melodies={this.state.melodies}	// TODO: Change to props
 				playMelody={this.playMelody}
 				stopMelody={this.stopMelody}
 				isPlayingMelody={this.isPlayingMelody}
 				upvoteMelody={this.upvoteMelody}
-				loadMoreMelodies={this.loadMoreMelodies} />
+				loadMoreMelodies={this.loadMoreMelodies} />;
 		} else if (this.state.view === 'myCompositions') {
-			content = <MyCompositions
+			content = <MyCompositions 
 				user={this.state.user}									// TODO: Change to props
 				compositions={this.state.compositions}	// TODO: Change to props
 				deleteComposition={this.deleteComposition} />;
 		} else if (this.state.view === 'createComposition') {
-			content = <MelodyBox editable = {true} saveFunction = {this.saveComposition()}/>;
+			content = <MelodyBox 
+							editable = {true} 
+							saveFunction = {this.saveComposition()}/>;
 		}
 
 		return (
-			<div>
+			<div className = 'App'>
 
-				<Navbar
+				<Navbar 
 					user={this.state.user}
 					changeView={this.changeView}
 					register={this.register}

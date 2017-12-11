@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import './navbar.css';
 /* This is the navbar, with options for moving through the site */
 export default class Navbar extends Component {
 
@@ -10,23 +11,23 @@ export default class Navbar extends Component {
 		let createCompositionButton = null;
 
 		let logoutButton = null;
-		let registerButton = <button onClick={this.props.register}>Enter now</button>;
+		let registerButton = <button onClick={this.props.register}  className="waves-effect waves-light btn navbar-button">Enter now</button>;
 
 		if (this.props.user) {
 			myCompositionsButton = (
-				<button onClick={this.props.changeView('myCompositions')}>
+				<button onClick={this.props.changeView('myCompositions')}  className="waves-effect waves-light btn navbar-button"> 
 					My Compositions
 				</button>
 			);
 
 			createCompositionButton = (
-				<button onClick={this.props.changeView('createComposition')}>
+				<button onClick={this.props.changeView('createComposition')}  className="waves-effect waves-light btn navbar-button">
 					Create Composition
 				</button>
 			);
 
 			logoutButton = (
-				<button onClick={this.props.logout}>
+				<button onClick={this.props.logout}  className="waves-effect waves-light btn navbar-button">
 					Logout
 				</button>
 			)
@@ -36,16 +37,21 @@ export default class Navbar extends Component {
 
 		return (
 			<div>
-				{/* This is the main title of the app */}
-				<h1>Musical! An expression of art</h1>
+				<div className="w3-bar w3-theme w3-top w3-left-align w3-large navbar">
+					{/* This is the main title of the app */}
+					<h1 className="title">Musical! An expression of art</h1>
+					
+					
+					{/* These are the navigation buttons */}
 
-				{/* These are the navigation buttons */}
-				<button onClick={this.props.changeView('feed')}>Feed</button>
-				{myCompositionsButton}
-				{createCompositionButton}
+					<button onClick={this.props.changeView('feed')}  className="waves-effect waves-light btn navbar-button">Feed</button>
+					{myCompositionsButton}
+					{createCompositionButton}
 
-				{registerButton}
-				{logoutButton}
+					{registerButton}
+					{logoutButton}
+				</div>
+			
 			</div>
 		);
 	}

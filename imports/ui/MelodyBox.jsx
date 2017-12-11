@@ -263,16 +263,30 @@ export default class MelodyBox extends Component {
        this.props.saveFunction(result);
     }
     render(){
-        return (
-            <div>
-                <canvas id="mainCanvas"
-                ref ={(mainCanvas) => {this.mainCanvas = mainCanvas; this.resizeCanvasToDisplaySize(mainCanvas)}} />
-                <div>
-                    <button onClick={this.toggleAnimation}>Try animate pls</button>
-                    { this.props.editable && <button onClick={this.resetState}>Try reset pls</button>}
-                    { this.props.editable && <button onClick={this.saveInfo}>Try saveInfo</button>}
-                </div> 
-            </div>
-        );
+        if(! this.props.editable) {
+            return (
+                <div className ="feed w3-main">
+                    <canvas id="mainCanvas"
+                    ref ={(mainCanvas) => {this.mainCanvas = mainCanvas; this.resizeCanvasToDisplaySize(mainCanvas)}} />
+                </div>
+            );
+        } else {
+            return (
+                <div className ="feed w3-main">
+                    <canvas id="mainCanvas"
+                    ref ={(mainCanvas) => {this.mainCanvas = mainCanvas; this.resizeCanvasToDisplaySize(mainCanvas)}} />
+                      <div className="fixed-action-btn horizontal">
+                        <a className="btn-floating btn-large red">
+                            <i className="large material-icons">mode_edit</i>
+                        </a>
+                        <ul>
+                            <li><a className="btn-floating red" onClick ={() => this.toggleAnimation()}><i className="material-icons">{!this.running && 'play_arrow'} {this.running && 'stop'}</i></a></li>
+                            <li><a className="btn-floating green" onClick ={() => this.resetState()}><i className="material-icons">delete</i></a></li>
+                            <li><a className="btn-floating blue" onClick ={() => this.saveInfo()}><i className="material-icons">attach_file</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
     }
 }

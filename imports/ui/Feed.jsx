@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Melody from './Melody.jsx';
 
+import './App.css';
+
 /* This represents the home feed with generated melodies */
 export default class Feed extends Component {
 
@@ -12,6 +14,7 @@ export default class Feed extends Component {
 				key={`melody-${index}`}
 				user={this.props.user}
 				melody={melody}
+				index={index}
 				playMelody={this.props.playMelody}
 				stopMelody={this.props.stopMelody}
 				isPlayingMelody={this.props.isPlayingMelody}
@@ -19,14 +22,16 @@ export default class Feed extends Component {
 		);
 
 		return (
-			<div className="feed">
+			<div className="feed w3-main title">
 
-				<h2>These are some auto-generated melodies for you!</h2>
-
+				<div className ='row'>
+					<h2 className="title col s6 m12">These are some auto-generated melodies for you!</h2> 
+					<a className="waves-effect waves-light btn deep-purple darken-2 col s6 m2 title" onClick={this.props.loadMoreMelodies} >MORE!</a>
+				</div>
 				{/* This is the list of generated melodies */}
-				<ul>{melodies}</ul>
+				<div className = 'row'>{melodies}</div>
 
-				<button onClick={this.props.loadMoreMelodies}>Load more melodies</button>
+				
 
 			</div>
 		);

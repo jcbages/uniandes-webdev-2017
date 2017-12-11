@@ -2,20 +2,54 @@ import React, { Component } from 'react';
 
 /* This is a single composition, like the ones shown in the my compositions view */
 export default class Composition extends Component {
+	constructor(props){
+		super(props);
+		this.getColor = this.getColor.bind(this);
+		
+	}
 
+	getColor(){
+		switch(this.props.index%7){
+			case 0:
+				return 'deep-purple ';
+				break;
+			case 1:
+				return 'blue ';
+				break;
+			case 2:
+				return 'teal ';
+				break;
+			case 3:
+				return 'amber ';
+				break;
+			case 4:
+				return 'red ';
+				break;
+			case 5:
+				return 'green ';
+				break;
+			case 6:
+				return 'cyan ';
+				break;
+		}
+	}
 	/* Render the composition component + children (if any) */
 	render() {
 		return (
-			<li>
-				{/* Current composition information */}
-				<p>Composition name: {this.props.composition.name}</p>
-                <p>Upvotes: {this.props.composition.upvotes}</p>
-				<p>Created at: {this.props.composition.createdAt}</p>
-
-				{/* Functionality buttons (delete & edit) */}
-				<button onClick={this.props.deleteComposition}>Delete composition</button>
-			</li>
-		)
+			<div className="col s12 m6">
+			<div className= {"card " + this.getColor()+" darken-2"}>
+				<div className="card-content white-text">
+					<span className="card-title">{this.props.composition.name} </span>
+					<p>Upvotes: {this.props.composition.upvotes}
+					</p> 
+					{/*<p>Created at: {this.props.composition.createdAt}</p>*/}
+				</div>
+				<div className="card-action ">
+					<a className={"waves-effect waves-light btn " + this.getColor() +" white-text"} onClick={this.props.deleteComposition}>Delete Composition</a>
+				</div>
+			</div>
+		  </div>
+		);
 	}
 
 }
