@@ -35,20 +35,25 @@ export default class SoundMagic {
 	}
 
 	randomSong(){
-		let response = '0'.repeat(X*Y);
-		for(let i = 0 ; i < X ; i++){
+		let response = [];
+		for (let i = 0; i < X * Y; ++i) response[i] = '0';
+
+		for(let i = 0; i < X; i++){
 			let rand = Math.random();
-			if(rand>0.15 && rand <0.5){
-				response[i*Y + Math.floor(Math.random()*14)] = '1';
-			} else if (rand > 0.5 && rand <0.85 ){
-				response[i*Y + Math.floor(Math.random()*14)] = '1';
-				response[i*Y + Math.floor(Math.random()*14)] = '1';
-			} else if (rand>0.85) {
-				response[i*Y + Math.floor(Math.random()*14)] = '1';
-				response[i*Y + (Math.floor(Math.random()*14+2)%14)] = '1';
-				response[i*Y + (Math.floor(Math.random()*14+4)%14)] = '1';
+			if (rand > 0.15 && rand < 0.60) {
+				response[i * Y + Math.floor(Math.random()*14)] = '1';
+			} else if (rand > 0.60 && rand < 0.90){
+				response[i * Y + Math.floor(Math.random()*14)] = '1';
+				response[i * Y + Math.floor(Math.random()*14)] = '1';
+			} else if (rand > 0.90) {
+				response[i * Y + Math.floor(Math.random()*14)] = '1';
+				response[i * Y + (Math.floor(Math.random()*14+2)%14)] = '1';
+				response[i * Y + (Math.floor(Math.random()*14+4)%14)] = '1';
 			}
 		}
-		return response;
+
+		let ans = ''
+		for (let i = 0; i < X * Y; ++i) ans += response[i];
+		return ans;
 	}
 }
