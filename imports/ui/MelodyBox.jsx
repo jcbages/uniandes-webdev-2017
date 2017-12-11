@@ -22,6 +22,8 @@ export default class MelodyBox extends Component {
                        {r:75 , g: 178, b: 80 },
                        {r:69 , g: 152, b: 182}];
         this.toggleAnimation = this.toggleAnimation.bind(this);
+        this.resetState = this.resetState.bind(this);
+        this.saveInfo = this.saveInfo.bind(this);
         this.tweenMatrix = Array(12).fill().map( () => Array(14));
         this.running = false;
         this.synth =  new Tone.PolySynth(6, Tone.Synth, {
@@ -57,7 +59,9 @@ export default class MelodyBox extends Component {
         const X =  this.cells.length;
         const Y = this.cells[0].length;
         this.stage.enableMouseOver(20);
-        this.stage.canvas.style.cursor = "pointer";
+        if(this.props.editable){
+            this.stage.canvas.style.cursor = "pointer";
+        }
         for(let i = 0 ; i < X; i++){
             for(let j = 0 ; j < Y; j++){
                 this.cells[i][j] = new createjs.Shape();
@@ -72,12 +76,14 @@ export default class MelodyBox extends Component {
                 
                 this.cells[i][j].hitArea = hit;
                 this.dots[i][j].hitArea = hit;
-                this.cells[i][j].addEventListener("click",this.getClickFunction(i,j,this.stage));
-                this.dots[i][j].addEventListener("click",this.getClickFunction(i,j,this.stage));
-                this.cells[i][j].addEventListener("mouseover", this.getMouseOverFunction(i,j,this.stage));
-                this.cells[i][j].addEventListener("mouseout", this.getMouseOverFunction(i,j,this.stage));
-                this.dots[i][j].addEventListener("mouseover", this.getMouseOverFunction(i,j,this.stage));
-                this.dots[i][j].addEventListener("mouseout", this.getMouseOverFunction(i,j,this.stage));
+                if(this.props.editable){
+                    this.cells[i][j].addEventListener("click",this.getClickFunction(i,j,this.stage));
+                    this.dots[i][j].addEventListener("click",this.getClickFunction(i,j,this.stage));
+                    this.cells[i][j].addEventListener("mouseover", this.getMouseOverFunction(i,j,this.stage));
+                    this.cells[i][j].addEventListener("mouseout", this.getMouseOverFunction(i,j,this.stage));
+                    this.dots[i][j].addEventListener("mouseover", this.getMouseOverFunction(i,j,this.stage));
+                    this.dots[i][j].addEventListener("mouseout", this.getMouseOverFunction(i,j,this.stage));
+                }
                 this.dots[i][j].alpha = (this.state.boxState[i][j])?0:1;
                 this.cells[i][j].alpha = (this.state.boxState[i][j])?1:0;
                 
@@ -221,6 +227,41 @@ export default class MelodyBox extends Component {
         this.toggleAnimation();
         this.toggleAnimation();
     }
+    componentWillUnmount(){
+        if(this.running){
+            this.toggleAnimation();
+        }
+    }
+    resetState() {
+        if(this.running){
+            this.toggleAnimation();
+        }
+        const X = this.cells.length;
+        const Y = this.cells[0].length;
+        for(let i = 0 ; i < X; i++){
+            for(let j = 0 ; j < Y; j++){
+                if(this.state.boxState[i][j]){
+                    this.getClickFunction(i,j,this.stage)();
+                }
+            }
+        }
+    }
+    saveInfo() {
+        let result = '';
+        const X = this.cells.length;
+        const Y = this.cells[0].length;
+        for(let i = 0 ; i < X; i++){
+            for(let j = 0 ; j < Y; j++){
+                if(this.state.boxState[i][j]){
+                    result+='1';
+                } else {
+                    result+='0';
+                }
+            }
+        }
+        console.log(result);
+        this.props.saveFunction(result);
+    }
     render(){
         return (
             <div>
@@ -228,6 +269,8 @@ export default class MelodyBox extends Component {
                 ref ={(mainCanvas) => {this.mainCanvas = mainCanvas; this.resizeCanvasToDisplaySize(mainCanvas)}} />
                 <div>
                     <button onClick={this.toggleAnimation}>Try animate pls</button>
+                    { this.props.editable && <button onClick={this.resetState}>Try reset pls</button>}
+                    { this.props.editable && <button onClick={this.saveInfo}>Try saveInfo</button>}
                 </div> 
             </div>
         );

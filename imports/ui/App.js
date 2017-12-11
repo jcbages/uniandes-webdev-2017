@@ -39,11 +39,13 @@ export default class App extends Component {
 		this.stopMelody = this.stopMelody.bind(this);
 		this.isPlayingMelody = this.isPlayingMelody.bind(this);
 		this.upvoteMelody = this.upvoteMelody.bind(this);
-
+		
 		this.deleteComposition = this.deleteComposition.bind(this);
 
 		this.register = this.register.bind(this);
 		this.logout = this.logout.bind(this);
+
+		this.saveComposition = this.saveComposition.bind(this);
 	}
 
 	/* Change the view for the given one */
@@ -118,7 +120,12 @@ export default class App extends Component {
 		}
 		this.setState({ melodies: melodies });
 	}
-
+	saveComposition(){
+		return ((composition)=>{
+			//DO MONGO STUFF
+			// No se si deba cambiar el view, yo creo que s\'i
+		});
+	}
 	/* Render the app component + children (if any) */
 	render() {
 		let content;
@@ -137,7 +144,7 @@ export default class App extends Component {
 				compositions={this.state.compositions}	// TODO: Change to props
 				deleteComposition={this.deleteComposition} />;
 		} else if (this.state.view === 'createComposition') {
-			content = <MelodyBox />;
+			content = <MelodyBox editable = {true} saveFunction = {this.saveComposition()}/>;
 		}
 
 		return (
