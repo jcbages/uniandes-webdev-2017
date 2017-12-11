@@ -15,9 +15,9 @@ export default class Feed extends Component {
 				user={this.props.user}
 				melody={melody}
 				index={index}
-				playMelody={this.props.playMelody}
-				stopMelody={this.props.stopMelody}
-				isPlayingMelody={this.props.isPlayingMelody}
+				play={this.props.play}
+				stop={this.props.stop}
+				isPlaying={this.props.isPlaying}
 				upvoteMelody={this.props.upvoteMelody} />
 		);
 

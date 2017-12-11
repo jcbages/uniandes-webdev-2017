@@ -64,9 +64,16 @@ class App extends Component {
 	/* Start playing the given sound & stop any other currently playing sound (if any) */
 	play(target) {
 		return this.stop(() => {
+			let toPlay;
+			if (target.playString) {
+				toPlay = [target.playString];
+			} else {
+				toPlay = target.playStrings;
+			}
+			
 			this.setState({
-				currentSM: new SoundMagic([target.playString], this.synth),
-				playingString: target.playString
+				currentSM: new SoundMagic(toPlay, this.synth),
+				playingString: toPlay
 			}, () => this.state.currentSM.start());
 		});
 	}
@@ -164,9 +171,11 @@ class App extends Component {
 					changeView={this.changeView}
 					logout={this.logout} />
 
+				<div className="login-button">
+					<AccountsUIWrapper />
+				</div>
+				
 				{content}
-
-				<AccountsUIWrapper />
 
 			</div>
 		);

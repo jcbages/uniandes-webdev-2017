@@ -41,10 +41,11 @@ export default class Melody extends Component {
 
 		// Define the play button text + action depending on if the props melody is playing
 		let playButtonText = 'Play melody';
-		let playButtonOnClick = () => this.props.playMelody(this.props.melody);
-		if (this.props.isPlayingMelody(this.props.melody)) {
+
+		let playButtonOnClick = () => this.props.play(this.props.melody);
+		if (this.props.isPlaying(this.props.melody.playStrings)) {
 			playButtonText = 'Stop melody';
-			playButtonOnClick = () => this.props.stopMelody();
+			playButtonOnClick = () => this.props.stop();
 		}
 
 		// Show/Hide the upvote button depending on if the user is logged or not

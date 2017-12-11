@@ -51,7 +51,7 @@ Meteor.methods({
 	},
 
 	/* Upvote the composition with the given ID */
-	'composition.upvote'(compositionId) {
+	'compositions.upvote'(compositionId) {
 		// Validate that the ID is in fact an string
 		check(compositionId, String);
 

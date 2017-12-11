@@ -6,23 +6,33 @@ html,body,h1,h2,h3,h4,h5,h6 {
 body {
     padding-top: 60px;
 }
+
 p {
     text-align: justify;
     text-justify: distribute;
 }
+
 .feed {
     padding-top: 60px;
 }
+
 .navbar {
     background-color: rgb(78,97,216) !important;
+    z-index: 237182731;
 }
+
 .title{
     margin-left: 10px;
 }
+
 .navbar {
-    background-color: rgb(78,97,216) ;
-    
+    background-color: rgb(78,97,216) ;   
 }
+
 .navbar-button {
     background-color: rgb(98, 119, 236) ;
+}
+
+.login-button {
+    padding-top: 60px;
 }

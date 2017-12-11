@@ -185,14 +185,12 @@ export default class MelodyBox extends Component {
                 (time, col) =>{  
                     for (let i = 0; i < Y; i++){
                         
-                        if (boxState[col][i]){
-                            //console.log(noteNames[14-i-1]+" "+col+" "+i+" "+time);    
+                        if (boxState[col][i]){   
                             synth.triggerAttackRelease(noteNames[14-i-1],.150,time);
                         }
                     }
                 });
             })(Y,this.state.boxState,this.synth), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], .150);
-            console.log(this.loop);
             for(let i = 0 ; i < X; i++){
                 for(let j = 0 ; j < Y; j++){
                     if(this.state.boxState[i][j]){
@@ -259,7 +257,6 @@ export default class MelodyBox extends Component {
                 }
             }
         }
-       console.log(result);
        this.props.saveFunction(result);
     }
     render(){
