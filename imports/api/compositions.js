@@ -18,7 +18,7 @@ Meteor.methods({
 	/* Save the given composition */
 	'compositions.save'(data) {
 		// Abort if not user
-		if (!Meteor.userId()) {
+		if (!this.userId) {
 			throw new Meteor.Error('not-authorized');
 		}
 
@@ -30,7 +30,7 @@ Meteor.methods({
 			name: data.name,
 			playString: data.playString,
 			upvotes: 0,
-			owner: Meteor.userId()
+			owner: this.userId
 		});
 	},
 
@@ -41,7 +41,7 @@ Meteor.methods({
 
 		// Find the composition & abort if not authorized
 		let composition = Compositions.findOne(compositionId);
-		if (composition.owner !== Meteor.userId()) {
+		if (composition.owner !== this.userId) {
 			// If its another user session, abort process
 			throw new Meteor.Error('not-authorized');
 		}
@@ -57,7 +57,7 @@ Meteor.methods({
 
 		// Find the composition & abort if not authorized
 		let composition = Compositions.findOne(compositionId);
-		if (composition.owner !== Meteor.userId()) {
+		if (composition.owner !== this.userId) {
 			// If its another user session, abort process
 			throw new Meteor.Error('not-authorized');
 		}
