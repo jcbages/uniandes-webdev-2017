@@ -8,7 +8,8 @@ export default class Melody extends Component {
 		this.getColor = this.getColor.bind(this);
 		
 	}
-
+	
+	/*Buen manejo para la asignacion de colores*/
 	/* Define the class color based on position */
 	getColor(){
 		switch (this.props.index % 7) {
