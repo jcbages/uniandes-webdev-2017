@@ -1,0 +1,183 @@
+/* CSS declarations go here */
+#app {
+	color: #95989A;
+	font-family: Helvetica, serif;
+	font-weight: lighter;
+}
+
+#app h1, #app h2 {
+	font-family: 'Josefin Slab', serif;
+}
+
+li {
+	list-style: none;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+#bg {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: -1;
+}
+
+#header {
+	text-align: center;
+	padding-top: 3.0%;
+}
+
+#header .header-link {
+	color: #E4C311;
+	font-family: 'Josefin Slab', serif;
+	font-size: 1.45em;
+}
+
+#header #login img {
+	width: 32px;
+	height: 32px;
+	margin-top: 12px;
+}
+
+#header h1 {
+	font-size: 2.55em;
+}
+
+#header hr {
+	width: 450px;
+	box-shadow: 0px 1px 1px #848789;
+}
+
+#about, #help, #user, #game {
+	padding-left: 3.5%;
+	padding-top: 1.9%;
+}
+
+#about h2, #help h2, #user h2, #game h2 {
+	font-size: 1.94em;
+	padding-bottom: 0.9%;
+}
+
+#about h3, #help h3, #user h3, #game h3 {
+	font-size: 1.64em;
+	padding-bottom: 0.9%;
+}
+
+#about p, #help p, #about li, #help li {
+	font-size: 1.08em;
+}
+
+#about li .bullet {
+	display: inline-block;
+	min-width: 8px;
+	min-height: 8px;
+	border-radius: 8px;
+	margin-left: 7px;
+	margin-right: 11px;
+	margin-bottom: 2px;
+}
+
+#about li .bullet-1 {
+	background-color: #FF8181;
+}
+
+#about li .bullet-2 {
+	background-color: #F7EE85;
+}
+
+#about li .bullet-3 {
+	background-color: #6FDE85;
+}
+
+#about li {
+	padding-bottom: 1.7%;
+}
+
+#help li {
+	padding-bottom: 1.8%;
+}
+
+#help li strong {
+	display: block;
+}
+
+#user button {
+	color: #95989A;
+	width: 90%;
+	display: block;
+	margin: auto;
+	background-color: #EFEFEF;
+	padding: 12px 0;
+	font-size: 1.5em;
+	font-family: 'Josefin Slab', serif;
+	border: 2px solid #EFEFEF;
+	cursor: pointer;
+}
+
+#user button:hover {
+	border: 2px solid #B7BABC;
+}
+
+#game button {
+	color: #95989A;
+	width: 90%;
+	display: block;
+	margin: auto;
+	background-color: #EFEFEF;
+	padding: 12px 0;
+	font-size: 1.5em;
+	font-family: 'Josefin Slab', serif;
+	border: 2px solid #EFEFEF;
+	cursor: pointer;
+}
+
+#game button:hover {
+	border: 2px solid #B7BABC;
+}
+
+#game #loading {
+	padding: 9.5% 0 6.5% 0;
+}
+
+#game #loading img {
+	margin-left: 15%;
+}
+
+#game h3 {
+	font-family: Helvetica, serif;
+	font-weight: lighter;
+	font-size: 1.4em;
+	margin-top: 13%;
+}
+
+#game h3 span {
+	color: #E4C311;
+}
+
+#footer {
+	padding-top: 1.7%;
+	padding-left: 3.5%;
+}
+
+#footer p {
+	font-style: italic;
+}
+
+#footer span {
+	color: #E4C311;
+}
+
+@media(max-width: 780px) {
+	#bg {
+		display: none;
+	}
+}
+
+@media(max-width: 450px) {
+	#header hr {
+		width: 350px;
+	}
+}
